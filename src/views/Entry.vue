@@ -4,7 +4,17 @@
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div></div> <!-- 空的占位符，保持布局结构 -->
         <div>
-
+          <!-- 搜索框 -->
+          <div class="input-group w-100 w-md-auto">
+            <input 
+              type="text" 
+              class="form-control liquid-glass-input" 
+              placeholder="搜索词条..." 
+              v-model="searchQuery"
+              @input="handleSearch"
+            >
+            <button class="btn btn-primary" @click="handleSearch">搜索</button>
+          </div>
         </div>
       </div>
       
@@ -15,19 +25,55 @@
         </div>
       </div>
 
-      <div class="row g-4">
-        <div class="col-xl-3 col-lg-4 col-md-6" v-for="meme in allMemes" :key="meme.id">
+      <!-- 加载状态 -->
+      <div v-if="loading" class="row justify-content-center">
+        <div class="col-12 text-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">加载中...</span>
+          </div>
+          <p class="text-white mt-2">正在加载词条...</p>
+        </div>
+      </div>
+
+      <!-- 错误信息 -->
+      <div v-else-if="error" class="row justify-content-center">
+        <div class="col-12 col-md-8 text-center">
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">加载失败</h4>
+            <p>{{ error }}</p>
+            <button class="btn btn-primary" @click="fetchEntries">重试</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 词条列表 -->
+      <div v-else class="row g-4">
+        <div v-if="entries.length === 0" class="col-12 text-center">
+          <p class="text-white">没有找到词条</p>
+        </div>
+        <div 
+          class="col-xl-3 col-lg-4 col-md-6" 
+          v-for="entry in entries" 
+          :key="entry.id"
+        >
           <div class="card h-100 liquid-glass-card meme-card">
             <div class="liquid-glass-card-hover">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-start mb-2">
-                  <div class="badge liquid-badge">{{ meme.category }}</div>
-                  <small class="text-muted">{{ meme.date }}</small>
+                  <div class="badge liquid-badge">热梗</div>
+                  <small class="text-muted">{{ entry.year || '未知年份' }}</small>
                 </div>
-                <h3 class="card-title h5">{{ meme.title }}</h3>
-                <p class="card-text">{{ meme.description }}</p>
+                <h3 class="card-title h5">{{ entry.name }}</h3>
+                <p class="card-text">{{ entry.explanation }}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="tags">
+                    <span 
+                      v-for="(tag, index) in entry.tags.split(',')" 
+                      :key="index" 
+                      class="badge tag-badge me-1"
+                    >
+                      {{ tag.trim() }}
+                    </span>
                   </div>
                   <a href="#" class="btn btn-outline-primary btn-sm liquid-glass-btn">了解更多</a>
                 </div>
@@ -42,112 +88,59 @@
   <div class="mb-5"></div>
 </template>
 
-<script>
-export default {
-  name: 'Entry',
-  data() {
-    return {
-      allMemes: [
-        {
-          id: 1,
-          title: '躺平',
-          description: '指无论对方做出什么反应，你内心都毫无波澜，对此不会有任何反应或者反抗，表示顺从心理。',
-          category: '生活态度',
-          date: '2024年',
-          tags: ['2021', '社会现象']
-        },
-        {
-          id: 2,
-          title: '内卷',
-          description: '形容过度竞争，导致人们投入大量精力却无法提高整体效益的现象。',
-          category: '社会现象',
-          date: '2024年',
-          tags: ['2020', '职场']
-        },
-        {
-          id: 3,
-          title: '破防',
-          description: '原指游戏中突破对方防御，现多用于形容心理防线被突破，情绪失控。',
-          category: '情感表达',
-          date: '2024年',
-          tags: ['游戏术语', '情感']
-        },
-        {
-          id: 4,
-          title: 'YYDS',
-          description: '永远的神，用于表达对某事物的高度赞美。',
-          category: '缩写用语',
-          date: '2024年',
-          tags: ['缩写', '赞美']
-        },
-        {
-          id: 5,
-          title: '绝绝子',
-          description: '表示太好了或太棒了，一种夸张的赞美表达方式。',
-          category: '流行语',
-          date: '2024年',
-          tags: ['赞美', '夸张']
-        },
-        {
-          id: 6,
-          title: '社死',
-          description: '社会性死亡，指在社交场合中遭遇尴尬，感到无地自容。',
-          category: '社交现象',
-          date: '2024年',
-          tags: ['社交', '尴尬']
-        },
-        {
-          id: 7,
-          title: '显眼包',
-          description: '原本指那些喜欢表现自己、引人注意的人，在网络语境中常用来调侃那些行为夸张、引人注目的人或事。',
-          category: '人物描述',
-          date: '2024年',
-          tags: ['人物', '调侃']
-        },
-        {
-          id: 8,
-          title: '摆烂',
-          description: '源自篮球术语，意为故意不努力、任由事情恶化的行为，后广泛用于形容面对困难时选择放弃的态度。',
-          category: '态度表达',
-          date: '2024年',
-          tags: ['态度', '放弃']
-        },
-        {
-          id: 9,
-          title: 'emo',
-          description: '原指一种音乐风格，现多用于表达负面情绪，如忧郁、伤感等。',
-          category: '情感表达',
-          date: '2024年',
-          tags: ['情感', '音乐']
-        },
-        {
-          id: 10,
-          title: '打工人',
-          description: '原本指从事体力劳动的人，网络语境中泛指为生活奔波的上班族，带有自嘲和调侃意味。',
-          category: '身份标签',
-          date: '2024年',
-          tags: ['职场', '自嘲']
-        },
-        {
-          id: 11,
-          title: '凡尔赛',
-          description: '指通过看似低调的方式进行炫耀，源自日本漫画《凡尔赛玫瑰》。',
-          category: '炫耀方式',
-          date: '2024年',
-          tags: ['炫耀', '文学']
-        },
-        {
-          id: 12,
-          title: '夺笋呐',
-          description: '网络流行语，"多损啊"的谐音，用于吐槽某人行为很损。',
-          category: '谐音梗',
-          date: '2024年',
-          tags: ['谐音', '吐槽']
-        }
-      ]
-    }
+<script setup>
+import { ref, onMounted } from 'vue';
+import entriesApi from '../services/api';
+
+// 状态管理
+const entries = ref([]);
+const loading = ref(false);
+const error = ref(null);
+const searchQuery = ref('');
+const originalEntries = ref([]);
+
+// 获取所有词条
+const fetchEntries = async () => {
+  loading.value = true;
+  error.value = null;
+  
+  try {
+    const data = await entriesApi.getEntries();
+    entries.value = data;
+    originalEntries.value = data; // 保存原始数据用于搜索
+  } catch (err) {
+    error.value = err.response?.data?.message || '获取词条失败，请稍后重试';
+    entries.value = [];
+  } finally {
+    loading.value = false;
   }
-}
+};
+
+// 搜索词条
+const handleSearch = async () => {
+  if (!searchQuery.value.trim()) {
+    entries.value = originalEntries.value;
+    return;
+  }
+  
+  loading.value = true;
+  error.value = null;
+  
+  try {
+    const data = await entriesApi.searchEntries(searchQuery.value);
+    entries.value = data;
+  } catch (err) {
+    error.value = err.response?.data?.message || '搜索失败，请稍后重试';
+    entries.value = [];
+  } finally {
+    loading.value = false;
+  }
+};
+
+// 组件挂载时获取数据
+onMounted(() => {
+  fetchEntries();
+});
 </script>
 
 <style scoped>
@@ -276,6 +269,38 @@ export default {
   border-color: #0d6efd;
 }
 
+/* 搜索框样式 */
+.liquid-glass-input {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px 0 0 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.liquid-glass-input:focus {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+.input-group .btn-primary {
+  background: linear-gradient(45deg, #0d6efd, #0b5ed7);
+  border: none;
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
+  transition: all 0.3s ease;
+}
+
+.input-group .btn-primary:hover {
+  background: linear-gradient(45deg, #0b5ed7, #0a58ca);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(13, 110, 253, 0.35);
+}
+
 @keyframes floatIn {
   from {
     opacity: 0;
@@ -300,6 +325,19 @@ export default {
   
   .liquid-glass-card {
     border-radius: 16px;
+  }
+  
+  .input-group {
+    width: 100% !important;
+  }
+  
+  .liquid-glass-input,
+  .input-group .btn-primary {
+    border-radius: 20px;
+  }
+  
+  .input-group .btn-primary {
+    margin-top: 0.5rem;
   }
 }
 </style>
