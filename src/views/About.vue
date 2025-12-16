@@ -96,21 +96,31 @@
           </p>
           <div class="contact-info liquid-glass-card d-inline-block p-4">
             <div class="liquid-glass-card-hover">
-              <p class="mb-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope me-2" viewBox="0 0 16 16">
+              <div class="contact-item d-flex align-items-center mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope me-3" viewBox="0 0 16 16">
                   <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
                 </svg>
-                nico6719@qq.com
-              </p>
-              <p class="mb-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-dots me-2" viewBox="0 0 16 16">
-                  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                  <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                <span class="text-white-50">nico6719@qq.com</span>
+              </div>
+              
+              <div class="contact-item d-flex align-items-center mb-3">
+                <svg width="16" height="16" fill="currentColor" class="bi me-3" viewBox="0 0 16 16" style="min-width: 16px;">
+                  <path d="M5.68.047A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658l-.028.079a2.5 2.5 0 0 0-.497 1.396v.269c0 .342.126.668.353.92.224.25.353.576.353.92v1.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5v-1.5c0-.344.129-.67.353-.92.227-.252.353-.578.353-.92v-.269c0-.5-.177-.956-.497-1.396L5.526.658A.5.5 0 0 1 5.68.047zM7.5 1h1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5zM6 4.5v.365c0 .173-.064.338-.18.466-.114.126-.18.293-.18.466V7.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1.703c0-.173-.066-.34-.18-.466A.76.76 0 0 0 9 4.865V4.5a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z"/>
+                  <path d="M0 9.5A1.5 1.5 0 0 1 1.5 8h13A1.5 1.5 0 0 1 16 9.5v5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-5zm1.5-.5a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-13z"/>
                 </svg>
-                <button @click="openQQGroup" class="btn btn-link text-decoration-none text-white-50 p-0 border-0 bg-transparent d-inline align-baseline">
+                <button @click="openQQGroup" class="btn btn-link text-decoration-none text-white-50 p-0 border-0 bg-transparent d-inline align-baseline text-start">
                   点击加入QQ群
                 </button>
-              </p>
+              </div>
+              
+              <div class="contact-item d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github me-3" viewBox="0 0 16 16">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                <button @click="openGithubRepo" class="btn btn-link text-decoration-none text-white-50 p-0 border-0 bg-transparent d-inline align-baseline text-start">
+                  访问GitHub仓库
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -126,6 +136,10 @@ export default {
     openQQGroup() {
       // 打开QQ群链接
       window.open('https://qm.qq.com/q/hBcOiafEti', '_blank', 'noopener,noreferrer');
+    },
+    openGithubRepo() {
+      // 打开GitHub仓库链接
+      window.open('https://github.com/Nico6719/whatmean.com/', '_blank', 'noopener,noreferrer');
     }
   }
 }
@@ -191,6 +205,10 @@ export default {
   margin: 0 auto;
 }
 
+.contact-item {
+  min-height: 32px; /* 确保每个联系项高度一致 */
+}
+
 .display-4 {
   animation: fadeInDown 0.8s ease;
 }
@@ -225,6 +243,12 @@ export default {
   outline: none;
 }
 
+/* 确保图标对齐 */
+.bi {
+  flex-shrink: 0; /* 防止图标被压缩 */
+  width: 16px; /* 固定宽度 */
+}
+
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -252,6 +276,10 @@ export default {
   .container-fluid {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  
+  .contact-info {
+    max-width: 100%;
   }
 }
 </style>
