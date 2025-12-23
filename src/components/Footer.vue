@@ -30,22 +30,13 @@
         <!-- 已删除订阅部分 -->
       </div>
       <hr class="my-4">
+      
+      <!-- 合并版权信息和备案号 -->
       <div class="row align-items-center">
-        <div class="col-md-6 text-center text-md-start">
-          <p class="mb-0 text-white-50">&copy; 2025 何意味.com. 保留所有权利.</p>
-        </div>      
-        <div class="col-md-6 text-center text-md-end">
-          <ul class="list-inline mb-0">
-            <li class="list-inline-item"><a href="#" class="text-white-50 text-decoration-none">隐私政策</a></li>
-            <li class="list-inline-item"><a href="#" class="text-white-50 text-decoration-none">使用条款</a></li>
-            <li class="list-inline-item"><a href="#" class="text-white-50 text-decoration-none">网站地图</a></li>
-          </ul>
-        </div>
-      </div>
-      <!-- 备案号区域 -->
-      <div class="row mt-4">
         <div class="col-12 text-center">
-          <p class="mb-0 text-white-50 small">
+          <p class="mb-0 text-white-50">
+            &copy; 2025 何意味.com. 保留所有权利. 
+            <span class="mx-2">|</span>
             <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-white-50">
               闽ICP备2025115232号-2
             </a>
@@ -176,6 +167,17 @@ footer {
   
   .glass-input-group {
     max-width: 100%;
+  }
+  
+  /* 在小屏幕上将版权信息和备案号垂直排列 */
+  .row.align-items-center .text-white-50 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .row.align-items-center .text-white-50 span.mx-2 {
+    display: none;
   }
 }
 </style>
