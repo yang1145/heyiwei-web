@@ -54,7 +54,53 @@
    - 避免使用不当或敏感词汇
    - 提供准确的信息和时间
    - 标签有助于用户搜索和分类
-   
+
+### 克隆优化 - Partial Clone 和 Sparse Checkout
+
+当词条数量增加时，仓库的 [entry](/heyiwei-web/entry) 目录可能会变得非常大。为了优化克隆速度和减少磁盘占用，您可以使用 Git 的 Partial Clone 和 Sparse Checkout 功能。
+
+#### 方法一：完整克隆优化（推荐）
+
+如果您需要完整的仓库功能，但想延迟下载大文件：
+
+```bash
+# 克隆仓库，但只下载Git对象的元数据（不下载实际文件内容）
+git clone --filter=blob:none https://github.com/Nico6719/whatmean.com.git
+```
+
+#### 方法二：稀疏检出（Sparse Checkout）
+
+如果您想完全跳过 entry 目录，只克隆项目源代码：
+
+```bash
+# 克隆仓库但不检出文件
+git clone --no-checkout https://github.com/Nico6719/whatmean.com.git
+cd whatmean.com
+
+# 启用稀疏检出功能
+git sparse-checkout init
+git config core.sparseCheckout true
+
+# 配置要检出的目录（排除 entry 目录）
+echo "/*" >> .git/info/sparse-checkout
+echo "!/entry/" >> .git/info/sparse-checkout
+
+# 检出配置的文件
+git checkout
+```
+
+#### 方法三：最简单的不包含entry目录的克隆命令
+
+如果您只需要运行项目而不需要词条数据：
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/Nico6719/whatmean.com.git
+cd whatmean.com
+git sparse-checkout set --no-cone src public package.json package-lock.json vite.config.js README.md DEVELOPMENT_GUIDE.md API_DOCUMENTATION.md
+```
+
+使用这些技术，您可以避免下载大量的词条文件，从而显著减少克隆时间和磁盘占用。
+
 ### 开发者指南
 
 如果您想在本地运行该项目，请参考以下步骤：
