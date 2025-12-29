@@ -2,36 +2,49 @@
   <footer class="glass-footer">
     <div class="container-fluid px-4 px-md-5">
       <div class="row">
-        <div class="col-lg-4 mb-4 mb-lg-0">
+        <div class="col-12 col-md-4 mb-4 mb-md-0">
           <h3 class="h5 fw-bold text-white">何意味.com</h3>
           <p class="text-white-50">
             记录和分享最新的网络热词和流行文化，帮助大家更好地理解和融入当代网络环境。
           </p>
         </div>
         
-        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+        <div class="col-12 col-md-2 mb-4 mb-md-0 d-none d-md-block">
           <h4 class="h6 fw-bold text-uppercase text-primary mb-3">快速链接</h4>
           <ul class="list-unstyled">
-            <li class="mb-2"><a href="#" class="text-decoration-none text-white-50">首页</a></li>
-            <li class="mb-2"><a href="#" class="text-decoration-none text-white-50">最新热梗</a></li>
-            <li class="mb-2"><a href="#" class="text-decoration-none text-white-50">热门排行</a></li>
-            <li class="mb-2"><a href="#" class="text-decoration-none text-white-50">分类浏览</a></li>
+            <li class="mb-2">
+              <router-link to="/" class="text-decoration-none text-white-50">首页</router-link>
+            </li>
+            <li class="mb-2">
+              <router-link to="/entries" class="text-decoration-none text-white-50">最新热梗</router-link>
+            </li>
+            <li class="mb-2">
+              <router-link to="/entries" class="text-decoration-none text-white-50">热门排行</router-link>
+            </li>
+            <li class="mb-2">
+              <router-link to="/entries" class="text-decoration-none text-white-50">分类浏览</router-link>
+            </li>
           </ul>
         </div>
         
-        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+        <div class="col-12 col-md-2 mb-4 mb-md-0 d-none d-md-block">
           <h4 class="h6 fw-bold text-uppercase text-primary mb-3">关于网站</h4>
           <ul class="list-unstyled">
-            <li class="mb-2"><a href="/about" class="text-decoration-none text-white-50">关于网站</a></li>
-            <li class="mb-2"><a href="#" class="text-decoration-none text-white-50">贡献内容</a></li>
+            <li class="mb-2">
+              <router-link to="/about" class="text-decoration-none text-white-50">关于网站</router-link>
+            </li>
+            <li class="mb-2">
+              <a href="https://github.com/Nico6719/whatmean.com" target="_blank" class="text-decoration-none text-white-50">贡献内容</a>
+            </li>
+            <li class="mb-2">
+              <router-link to="/friends" class="text-decoration-none text-white-50">友情链接</router-link>
+            </li>
           </ul>
         </div>
-        
-        <!-- 已删除订阅部分 -->
       </div>
       <hr class="my-4">
       
-      <!-- 合并版权信息和备案号 -->
+      <!-- 版权信息和备案号 -->
       <div class="row align-items-center">
         <div class="col-12 text-center">
           <p class="mb-0 text-white-50">
@@ -169,15 +182,45 @@ footer {
     max-width: 100%;
   }
   
-  /* 在小屏幕上将版权信息和备案号垂直排列 */
+  /* 在小屏幕上垂直堆叠列 */
+  .row > div {
+    margin-bottom: 1.5rem;
+  }
+  
+  .row > div:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* 调整版权信息在小屏幕上的显示 */
   .row.align-items-center .text-white-50 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
   }
   
   .row.align-items-center .text-white-50 span.mx-2 {
     display: none;
+  }
+  
+  /* 移动端列表项样式 */
+  .list-unstyled li {
+    padding: 0.25rem 0;
+  }
+  
+  /* 确保在小屏幕上标题有合适的间距 */
+  .h6.fw-bold {
+    margin-bottom: 0.75rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .glass-footer {
+    padding: 1.5rem 0;
+  }
+  
+  .text-white-50 {
+    font-size: 0.875rem;
   }
 }
 </style>

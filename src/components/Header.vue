@@ -7,6 +7,7 @@
         </h1>
         
         <div class="d-flex align-items-center">
+          <!-- 桌面端搜索框 -->
           <div class="input-group me-3 d-none d-md-flex glass-search" style="width: 250px;">
             <input type="text" class="form-control form-control-sm" placeholder="搜索热梗..." aria-label="搜索热梗">
             <button class="btn btn-light text-primary" type="button">
@@ -16,7 +17,8 @@
             </button>
           </div>
           
-          <nav>
+          <!-- 桌面端导航菜单 -->
+          <nav class="d-none d-md-block">
             <ul class="nav">
               <li class="nav-item">
                 <router-link class="nav-link text-white" to="/">首页</router-link>
@@ -32,7 +34,51 @@
               </li>
             </ul>
           </nav>
+          
+          <!-- 移动端汉堡菜单按钮 -->
+          <button 
+            class="navbar-toggler border-0 d-md-none ms-2" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            @click="toggleMobileMenu"
+          >
+            <span class="navbar-toggler-icon text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+              </svg>
+            </span>
+          </button>
         </div>
+      </div>
+      
+      <!-- 移动端折叠导航菜单 -->
+      <div class="collapse d-md-none mt-2" :class="{ show: mobileMenuOpen }" id="navbarNav">
+        <div class="glass-search-mobile d-md-none mb-3 px-3 py-2 rounded">
+          <div class="input-group">
+            <input type="text" class="form-control bg-transparent text-white" placeholder="搜索热梗..." aria-label="搜索热梗">
+            <button class="btn btn-light text-primary" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/" @click="closeMobileMenu">首页</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/entries" @click="closeMobileMenu">词条</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/about" @click="closeMobileMenu">关于</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/friends" @click="closeMobileMenu">友情链接</router-link>
+          </li>
+        </ul>
       </div>
     </div>
   </header>
@@ -40,7 +86,28 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  data() {
+    return {
+      mobileMenuOpen: false
+    }
+  },
+  methods: {
+    toggleMobileMenu() {
+      this.mobileMenuOpen = !this.mobileMenuOpen;
+    },
+    closeMobileMenu() {
+      this.mobileMenuOpen = false;
+    }
+  },
+  mounted() {
+    // 监听窗口大小变化，当窗口变大时关闭移动端菜单
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        this.mobileMenuOpen = false;
+      }
+    });
+  }
 }
 </script>
 
@@ -131,7 +198,35 @@ export default {
   transform: translateY(-2px);
 }
 
-/* 响应式调整 */
+/* 移动端菜单样式 */
+.glass-search-mobile {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-search-mobile .form-control {
+  background: transparent;
+  border: none;
+  color: white;
+  caret-color: white;
+}
+
+.glass-search-mobile .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.navbar-toggler {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
 @media (max-width: 768px) {
   .container-fluid {
     padding-left: 1rem;
